@@ -1,0 +1,94 @@
+.menu {
+  z-index: 12;
+  transition: 0.4s ease-in;
+}
+
+.menu__background {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.menu__container {
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 67.5%;
+  position: fixed;
+  justify-content: space-between;
+}
+
+.menu__close-button {
+  background-image: url("../../images/close-button.svg");
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  border: none;
+  background: none;
+  top: 23px;
+  right: 23px;
+  padding: 0;
+}
+
+.menu__main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
+  align-items: center;
+  gap: 22px;
+}
+
+.menu-link {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  padding-bottom: 6px;
+  transition: 0.4s ease-in;
+}
+
+.menu-link_active {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #ffffff;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 2px solid #ffffff;
+  transition: 0.4s ease-in;
+}
+
+.menu__button_account {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #ffffff;
+  padding: 8px 20px;
+  background-color: #313131;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.4s ease-in;
+  margin-bottom: 90px;
+}
+
+@media screen and (min-width: 769px) {
+  .menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .menu__container {
+    width: 100%;
+  }
+}

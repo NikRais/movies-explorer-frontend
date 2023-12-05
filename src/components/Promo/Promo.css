@@ -1,0 +1,122 @@
+.promo {
+  background-color: #202020;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.promo__container {
+  padding: 0;
+  margin: 20px 40px 0;
+  background-color: #272727;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+}
+
+.promo__title {
+  margin: 160px 0 0;
+  padding: 0;
+  color: #ffffff;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  text-align: center;
+  max-width: 730px;
+  min-height: 116px;
+  letter-spacing: normal;
+}
+
+.promo__nav-bar {
+  padding: 151px 0 30px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.promo__item {
+  width: 96px;
+  height: 36px;
+  border-radius: 10px;
+  margin-right: 10px;
+  background-color: #303030;
+  transition: 0.4s ease-in;
+}
+
+.promo__link {
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.promo__item:last-of-type {
+  margin-right: 0;
+}
+
+.promo__item:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__container {
+    display: flex;
+    flex-direction: column;
+    padding: 300px 0 0;
+    align-items: center;
+  }
+
+  .promo__title {
+    margin: 50px 0 147px;
+    font-size: 40px;
+    line-height: 52px;
+    position: unset;
+    text-align: center;
+  }
+
+  .promo__nav-bar {
+    margin-bottom: 0;
+  }
+
+  .promo__logo {
+    width: 680px;
+    height: 230px;
+    position: unset;
+    display: block;
+    max-width: 100vw;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo__container {
+    padding: 170px 0 0;
+    margin: 14px 14px 0;
+  }
+
+  .promo__title {
+    margin-bottom: 45px;
+    font-size: 29px;
+    line-height: 37px;
+    letter-spacing: -0.04em;
+  }
+
+  .promo__item {
+    width: 82px;
+    height: 26px;
+  }
+
+  .promo__link {
+    font-size: 10px;
+    margin: 5px 0;
+  }
+}
