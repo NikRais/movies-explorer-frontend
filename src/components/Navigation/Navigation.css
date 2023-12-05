@@ -70,7 +70,7 @@
   opacity: 0.8;
 }
 
-.navigation__button_profile {
+.navigation__button-profile {
   padding: 8px 20px;
   color: #ffffff;
   font-weight: 500;
@@ -83,11 +83,11 @@
   background-color: #313131;
 }
 
-.navigation__button_profile:hover {
+.navigation__button-profile:hover {
   opacity: 0.8;
 }
 
-.menu__button {
+.navigation__button-menu {
   width: 44px;
   height: 44px;
   background: none;
@@ -105,13 +105,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .navigation__button_profile {
+  .navigation__button-profile {
     display: none;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .menu__button {
+  .navigation__button-menu {
     display: block;
   }
 }

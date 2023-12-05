@@ -27,15 +27,15 @@
 }
 
 .menu__close-button {
-  background-image: url("../../images/close-button.svg");
+  background: url(../../images/close-button.svg) no-repeat center;
   width: 22px;
   height: 22px;
   position: absolute;
   border: none;
-  background: none;
   top: 23px;
   right: 23px;
   padding: 0;
+  opacity: 1;
 }
 
 .menu__main {
@@ -90,5 +90,10 @@
 @media screen and (max-width: 450px) {
   .menu__container {
     width: 100%;
+  }
+
+  .menu__close-button {
+    top: 14px;
+    right: 14px;
   }
 }

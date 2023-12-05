@@ -26,6 +26,10 @@
   line-height: 18px;
 }
 
+.search__input:focus {
+  outline: 1px solid #4285F4;
+}
+
 .search__button {
   margin: 0;
   padding: 0;

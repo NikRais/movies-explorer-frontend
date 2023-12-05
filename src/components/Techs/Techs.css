@@ -1,6 +1,8 @@
 .techs {
   padding: 100px 70px;
   background-color: #272727;
+  border: none;
+  border-radius: 10px;
 }
 
 .techs__title {

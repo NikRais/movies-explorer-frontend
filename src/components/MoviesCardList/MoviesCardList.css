@@ -32,7 +32,7 @@
   opacity: 0.8;
 }
 
-.cards__button_hidden {
+.cards__button-hidden {
   display: none;
   margin: 50px auto 80px;
   padding: 11px 0 9px;

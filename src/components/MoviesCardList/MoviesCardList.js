@@ -8,13 +8,13 @@ const MoviesCardList = ({ isLoading=false, isSavedMoviesPage, movies }) => {
   return (
     <section className='cards'>
       {isLoading ? <Preloader /> : (
-      <ul className='cards__list'>
+      <div className='cards__list'>
         {movies.map((movie) => {
           return <MoviesCard key={movie.id} movie={movie} isSavedMoviesPage={isSavedMoviesPage} />
         })}
-      </ul>
+      </div>
       )}
-      <button className={!isSavedMoviesPage ? 'cards__button' : 'cards__button_hidden'}>Ещё</button>
+      <button className={!isSavedMoviesPage ? 'cards__button' : 'cards__button-hidden'}>Ещё</button>
     </section>
   )
 };

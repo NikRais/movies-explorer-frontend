@@ -5,7 +5,7 @@ import "./NotFoundPage.css";
 
 const NotFoundPage = () => {
   return (
-    <div className="page__container">
+    <section className="page__container">
       <div className="page__info">
         <span className="page__status">404</span>
         <span className="page__not-found">Страница не найдена</span>
@@ -13,7 +13,7 @@ const NotFoundPage = () => {
       <Link to="/" className="page__link">
         Назад
       </Link>
-    </div>
+    </section>
   );
 };
 

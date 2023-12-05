@@ -4,7 +4,7 @@ import "./AboutMe.css";
 
 const AboutMe = () => {
   return (
-    <div className="about-me">
+    <section className="about-me">
       <h2 className="about-me__title">Студент</h2>
       <div className="about-me__container">
         <div className="about-me__info">
@@ -28,7 +28,7 @@ const AboutMe = () => {
         </div>
         <img className="about-me__photo" src={myPhoto} alt="Моё фото" />
       </div>
-    </div>
+    </section>
   );
 };
 

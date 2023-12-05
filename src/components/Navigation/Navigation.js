@@ -40,7 +40,7 @@ const Navigation = ({ loggedIn }) => {
           </div>
           <div>
             <Link to="/profile">
-              <button className="navigation__button_profile">Аккаунт</button>
+              <button className="navigation__button-profile">Аккаунт</button>
             </Link>
           </div>
         </>
@@ -55,7 +55,7 @@ const Navigation = ({ loggedIn }) => {
         </div>
       )}
       {!isMenuOpen && loggedIn ? (
-        <button className="menu__button" onClick={toggleMenu} />
+        <button className="navigation__button-menu" onClick={toggleMenu} />
       ) : (
         <Menu onClose={toggleMenu} />
       )}

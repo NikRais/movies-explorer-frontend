@@ -55,7 +55,7 @@
   visibility: visible;
 }
 
-.card__button_save {
+.card__button-save {
   width: 21px;
   height: 21px;
   background-image: url("../../images/icon-save.svg");
@@ -67,7 +67,7 @@
   cursor: pointer;
 }
 
-.card__button_delete {
+.card__button-delete {
   width: 21px;
   height: 21px;
   background-image: url("../../images/icon-delete.svg");
@@ -83,7 +83,7 @@
   visibility: hidden;
 }
 
-.card:hover .card__button_delete {
+.card:hover .card__button-delete {
   visibility: visible;
 }
 

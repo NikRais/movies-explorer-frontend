@@ -2,7 +2,7 @@ import "./Portfolio.css";
 
 const Portfolio = () => {
   return (
-    <div className="portfolio">
+    <section className="portfolio">
       <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__projects">
         <li>
@@ -12,9 +12,9 @@ const Portfolio = () => {
             href="https://github.com/NikRais/how-to-learn"
             target="_blank"
           >
-            Статичный сайт
+            <p className="portfolio__text">Статичный сайт</p>
+            <p className="portfolio__arrow">↗</p>
           </a>
-          <span>↗</span>
         </li>
         <li>
           <a
@@ -23,9 +23,9 @@ const Portfolio = () => {
             href="https://github.com/NikRais/russian-travel"
             target="_blank"
           >
-            Адаптивный сайт
+            <p className="portfolio__text">Адаптивный сайт</p>
+            <p className="portfolio__arrow">↗</p>
           </a>
-          <span>↗</span>
         </li>
         <li>
           <a
@@ -34,12 +34,12 @@ const Portfolio = () => {
             href="https://github.com/NikRais/react-mesto-api-full-gha"
             target="_blank"
           >
-            Одностраничное приложение
+            <p className="portfolio__text">Одностраничное приложение</p>
+            <p className="portfolio__arrow">↗</p>
           </a>
-          <span>↗</span>
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 

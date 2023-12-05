@@ -15,7 +15,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
-    <div className="App">
+    <section className="App">
       <Routes>
         <Route path="/" element={<Main loggedIn={isLoggedIn} />} />
 
@@ -34,7 +34,7 @@ const App = () => {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </div>
+    </section>
   );
 };
 

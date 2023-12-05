@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+
 import "./Menu.css";
 
 const Menu = ({ onClose }) => {
   const location = useLocation();
 
   return (
-    <div className="menu">
+    <section className="menu">
       <div className="menu__background">
         <div className="menu__container">
           <button
@@ -47,7 +48,7 @@ const Menu = ({ onClose }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
