@@ -1,9 +1,8 @@
 .page__container {
   display: flex;
   flex-direction: column;
-  position: relative;
   align-items: center;
-  height: 100%;
+  margin-top: 246px;
 }
 
 .page__info {
@@ -37,15 +36,27 @@
   color: #4285f4;
   text-decoration: none;
   transition: 0.4s ease-in;
-  position: absolute;
-  bottom: 60px;
+  padding: 184px 0 60px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .page__link:hover {
   opacity: 0.7;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 768px) {
+  .page__container{
+    margin-top: 408px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .page__container{
+    margin-top: 329px;
+  }
+
   .page__status {
     margin-bottom: 10px;
     font-size: 80px;

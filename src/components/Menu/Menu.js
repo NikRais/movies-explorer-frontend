@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./Menu.css";
 
 const Menu = ({ onClose }) => {
-  const location = useLocation();
-
   return (
     <section className="menu">
       <div className="menu__background">
@@ -16,32 +14,27 @@ const Menu = ({ onClose }) => {
             onClick={() => onClose()}
           />
           <div className="menu__main">
-            <Link
+            <NavLink
               to="/"
-              className={
-                location.pathname === "/" ? "menu-link_active" : "menu-link"
-              }
+              className="menu-link"
+              activeClassName="menu-link_active"
             >
               Главная
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/movies"
-              className={
-                location.pathname === "/movies" ? "menu-link_active" : "menu-link"
-              }
+              className="menu-link"
+              activeClassName="menu-link_active"
             >
               Фильмы
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/saved-movies"
-              className={
-                location.pathname === "/saved-movies"
-                  ? "menu-link_active"
-                  : "menu-link"
-              }
+              className="menu-link"
+              activeClassName="menu-link_active"
             >
               Сохранённые фильмы
-            </Link>
+            </NavLink>
           </div>
           <Link to="/profile">
             <button className="menu__button_account">Аккаунт</button>

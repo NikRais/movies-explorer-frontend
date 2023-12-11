@@ -1,8 +1,8 @@
 import { useState, useCallback } from "react";
 
 const useForm = () => {
-  const [errors, setErrors] = useState({});
   const [enteredValues, setEnteredValues] = useState({});
+  const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (evt) => {
@@ -18,6 +18,8 @@ const useForm = () => {
       ...errors,
       [name]: evt.target.validationMessage,
     });
+
+    setIsFormValid(evt.target.closest(".form").checkValidity());
   };
 
   const resetForm = useCallback(
@@ -30,10 +32,10 @@ const useForm = () => {
   );
 
   return {
-    errors,
     enteredValues,
-    isFormValid,
+    errors,
     handleChange,
+    isFormValid,
     resetForm,
   };
 };

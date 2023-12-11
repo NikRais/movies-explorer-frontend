@@ -3,14 +3,15 @@ import Header from "../Header/Header";
 
 import "./Promo.css";
 
-const Promo = () => {
+const Promo = ({ loggedIn }) => {
   return (
     <section className="promo">
+      <Header loggedIn={loggedIn} />
       <div className="promo__container">
         <h1 className="promo__title">
           Учебный проект студента факультета Веб-разработки.
         </h1>
-        
+
         <ul className="promo__nav-bar">
           <li className="promo__item">
             <a href="#aboutProject" className="promo__link">

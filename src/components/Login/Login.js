@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useForm from "../../utils/useForm";
+import useForm from "../../hooks/useForm";
 
 import "./Login.css";
 import logo from "../../images/header-logo.svg";
 
-const Login = () => {
-  const { enteredValues, errors, handleChange } = useForm();
+const Login = ({ onLogin }) => {
+  const { enteredValues, errors, handleChange, isFormValid } = useForm();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (!enteredValues.email || !enteredValues.password) {
+      return;
+    }
+    onLogin(enteredValues);
+  };
 
   return (
     <section className="login__container">
@@ -18,7 +26,7 @@ const Login = () => {
         <h1 className="login__title">Рады видеть!</h1>
       </div>
 
-      <form className="login__form">
+      <form className="login__form form" onSubmit={handleSubmit}>
         <label className="login__label" htmlFor="email">
           E-mail
         </label>
@@ -30,6 +38,7 @@ const Login = () => {
           required
           value={enteredValues.email || ""}
           onChange={handleChange}
+          pattern={"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"}
         />
         <span className="register__error">{errors.email}</span>
 
@@ -47,14 +56,14 @@ const Login = () => {
         />
         <span className="register__error">{errors.password}</span>
 
-        <button className="login__button" type="submit">
+        <button className="login__button" type="submit" disabled={!isFormValid}>
           Войти
         </button>
       </form>
 
       <div className="login__bottom-block">
         <span>Ещё не зарегистрированы?</span>
-        <Link to="signup" className="login__link">
+        <Link to="/signup" className="login__link">
           Регистрация
         </Link>
       </div>

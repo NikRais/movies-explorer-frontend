@@ -1,29 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../Header/Header";
+import useForm from "../../hooks/useForm";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./Profile.css";
 
-const Profile = ({ loggedIn }) => {
-  const [name, setName] = useState("Имя");
-  const [email, setEmail] = useState("pochta@yandex.ru");
+const Profile = ({ loggedIn, onUpdateUser, onSignOut }) => {
+  const currentUser = useContext(CurrentUserContext);
+  const { enteredValues, handleChange, isFormValid, resetForm } = useForm();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onUpdateUser({
+      name: enteredValues.name,
+      email: enteredValues.email,
+    });
+  };
+
+  useEffect(() => {
+    currentUser ? resetForm(currentUser) : resetForm();
+  }, [currentUser, resetForm]);
+
+  const isDataChanged =
+    !isFormValid ||
+    (currentUser.name === enteredValues.name &&
+      currentUser.email === enteredValues.email);
 
   return (
     <section>
       <Header loggedIn={loggedIn} />
       <div className="profile__container">
-        <h1 className="profile__title">Привет, Никита!</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}!</h1>
 
-        <form className="profile___form">
+        <form className="profile___form form" onSubmit={handleSubmit}>
           <div className="profile__form-section">
             <label className="profile__label">Имя</label>
             <input
               className="profile__input"
               type="text"
-              value={name}
+              name="name"
+              value={enteredValues.name || ""}
               required
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              onChange={handleChange}
             />
           </div>
 
@@ -34,18 +53,29 @@ const Profile = ({ loggedIn }) => {
             <input
               className="profile__input"
               type="email"
-              value={email}
+              name="email"
+              value={enteredValues.email || ""}
               required
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={handleChange}
             />
           </div>
         </form>
 
         <div className="profile__bottom-block">
-          <button className="profile__edit">Редактировать</button>
-          <button className="profile__logout">Выйти из аккаунта</button>
+          <button
+            className="profile__edit"
+            type="submit"
+            disabled={isDataChanged}
+          >
+            Редактировать
+          </button>
+          <button
+            className="profile__logout"
+            type="button"
+            onClick={() => onSignOut()}
+          >
+            Выйти из аккаунта
+          </button>
         </div>
       </div>
     </section>
