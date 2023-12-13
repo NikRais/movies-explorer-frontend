@@ -17,21 +17,21 @@ const Menu = ({ onClose }) => {
             <NavLink
               to="/"
               className="menu-link"
-              activeClassName="menu-link_active"
+              /*activeClassName="menu-link_active"*/
             >
               Главная
             </NavLink>
             <NavLink
               to="/movies"
               className="menu-link"
-              activeClassName="menu-link_active"
+              /*activeClassName="menu-link_active"*/
             >
               Фильмы
             </NavLink>
             <NavLink
               to="/saved-movies"
               className="menu-link"
-              activeClassName="menu-link_active"
+              /*activeClassName="menu-link_active"*/
             >
               Сохранённые фильмы
             </NavLink>

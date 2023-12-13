@@ -1,8 +1,8 @@
 import { BASE_URL } from "./constants";
 
 const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
 };
 
 const validateResponse = (res) => {
@@ -14,19 +14,19 @@ const validateResponse = (res) => {
 
 export const register = async ({ name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
+    method: 'POST',
     headers,
     body: JSON.stringify({
       name,
       email,
-      password,
+      password
     }),
   }).then((res) => validateResponse(res));
 };
 
 export const login = async ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
+    method: 'POST',
     headers,
     body: JSON.stringify({ email, password }),
   }).then((res) => validateResponse(res));
@@ -34,20 +34,20 @@ export const login = async ({ email, password }) => {
 
 export const getUserInfo = async (jwt) => {
   return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
+    method: 'GET',
     headers: {
       ...headers,
-      Authorization: `Bearer ${jwt}`,
-    },
+      'Authorization': `Bearer ${jwt}`,
+    }
   }).then((res) => validateResponse(res));
 };
 
 export const editUserInfo = async (data, jwt) => {
   return fetch(`${BASE_URL}/users/me`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
       ...headers,
-      Authorization: `Bearer ${jwt}`,
+      'Authorization': `Bearer ${jwt}`,
     },
     body: JSON.stringify({
       name: data.name,
@@ -58,20 +58,20 @@ export const editUserInfo = async (data, jwt) => {
 
 export const getSavedMovies = async (jwt) => {
   return fetch(`${BASE_URL}/movies`, {
-    method: "GET",
+    method: 'GET',
     headers: {
       ...headers,
-      Authorization: `Bearer ${jwt}`,
-    },
+      'Authorization': `Bearer ${jwt}`,
+    }
   }).then((res) => validateResponse(res));
 };
 
 export const saveMovie = async (movie, jwt) => {
   return fetch(`${BASE_URL}/movies`, {
-    method: "POST",
+    method: 'POST',
     headers: {
       ...headers,
-      Authorization: `Bearer ${jwt}`,
+      'Authorization': `Bearer ${jwt}`,
     },
     body: JSON.stringify({
       country: movie.country,
@@ -79,10 +79,9 @@ export const saveMovie = async (movie, jwt) => {
       duration: movie.duration,
       year: movie.year,
       description: movie.description,
-      image: "https://api.nomoreparties.co/" + movie.image.url,
+      image: 'https://api.nomoreparties.co/' + movie.image.url,
       trailerLink: movie.trailerLink,
-      thumbnail:
-        "https://api.nomoreparties.co/" + movie.image.formats.thumbnail.url,
+      thumbnail: 'https://api.nomoreparties.co/' + movie.image.formats.thumbnail.url,
       movieId: movie.id,
       nameRU: movie.nameRU || movie.nameEN,
       nameEN: movie.nameEN || movie.nameRU,
@@ -92,10 +91,10 @@ export const saveMovie = async (movie, jwt) => {
 
 export const deleteMovie = async (id, jwt) => {
   return fetch(`${BASE_URL}/movies/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
       ...headers,
-      Authorization: `Bearer ${jwt}`,
+      'Authorization': `Bearer ${jwt}`,
     },
   }).then((res) => validateResponse(res));
 };

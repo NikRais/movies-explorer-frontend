@@ -32,7 +32,7 @@ import {
 } from "../../utils/MainApi";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     handleTokenCheck();
-  }, [isLoggedIn]);
+  }, [isLoggedIn])
 
   /* Регистрация и авторизация */
   const handleRegistration = async ({ name, email, password }) => {
@@ -51,7 +51,7 @@ const App = () => {
       .then(() => {
         handleAuthorization({ email, password });
       })
-      .catch((error) => {
+      .catch(error => {
         setPopupMessage(error);
         setIsPopupOpen(true);
       });
@@ -69,14 +69,14 @@ const App = () => {
             localStorage.setItem("savedMovies", JSON.stringify(userMovies));
             setSavedMovies(userMovies);
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           })
           .finally(() => {
             setIsLoading(false);
           });
       })
-      .catch((error) => {
+      .catch(error => {
         setPopupMessage(error);
         setIsPopupOpen(true);
       });
@@ -85,13 +85,13 @@ const App = () => {
   /* Попап */
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-    setPopupMessage("");
+    setPopupMessage('');
   };
 
   /* Функциональность карточек фильмов */
   const handleSaveMovie = (movie) => {
     const jwt = localStorage.getItem("jwt");
-    const handledMovie = savedMovies.find((item) => {
+    const handledMovie = savedMovies.find(item => {
       return item.movieId === movie.id;
     });
     const isLiked = Boolean(handledMovie);
@@ -100,12 +100,12 @@ const App = () => {
       deleteMovie(id, jwt)
         .then((card) => {
           const updatedSavedMovies = savedMovies.filter(
-            (item) => card._id !== item._id
+            item => card._id !== item._id
           );
           localStorage.setItem("savedMovies", updatedSavedMovies);
           setSavedMovies(updatedSavedMovies);
         })
-        .catch((error) => {
+        .catch(error => {
           setPopupMessage(error);
           setIsPopupOpen(true);
         })
@@ -130,12 +130,12 @@ const App = () => {
     deleteMovie(movie._id, jwt)
       .then((card) => {
         const updatedSavedMovies = savedMovies.filter(
-          (item) => card._id !== item._id
+          item => card._id !== item._id
         );
         localStorage.setItem("savedMovies", updatedSavedMovies);
-        setSavedMovies((prev) => updatedSavedMovies);
+        setSavedMovies(prev => updatedSavedMovies);
       })
-      .catch((error) => {
+      .catch(error => {
         setPopupMessage(error);
         setIsPopupOpen(true);
       })
@@ -154,7 +154,7 @@ const App = () => {
         setPopupMessage("Профиль отредактирован!");
         setIsPopupOpen(true);
       })
-      .catch((error) => {
+      .catch(error => {
         setPopupMessage("При редактировании профиля произошла ошибка");
         setIsPopupOpen(true);
       })
@@ -167,7 +167,7 @@ const App = () => {
   const handleSignOut = () => {
     localStorage.clear();
     setCurrentUser({});
-    setPopupMessage("");
+    setPopupMessage('');
     setSavedMovies([]);
     setIsLoggedIn(false);
     navigate("/");
@@ -195,29 +195,25 @@ const App = () => {
     <CurrentUserContext.Provider value={currentUser}>
       <section className="App">
         <Routes>
-          <Route path="/" element={<Main loggedIn={isLoggedIn} />} />
-
-          <Route
-            path="/signup"
-            element={
-              !isLoggedIn ? (
+          <Route exact path="/signup"
+            element={ !isLoggedIn ? (
                 <Register onRegister={handleRegistration} />
               ) : (
-                <Navigate to="/" />
+                <Navigate replace to="/" />
               )
             }
           />
 
-          <Route
-            path="/signin"
-            element={
-              !isLoggedIn ? (
+          <Route exact path="/signin"
+            element={ !isLoggedIn ? (
                 <Login onLogin={handleAuthorization} />
               ) : (
-                <Navigate to="/" />
+                <Navigate replace to="/" />
               )
             }
           />
+
+          <Route exact path="/" element={<Main loggedIn={isLoggedIn}/>} />
 
           <Route
             path="/movies"

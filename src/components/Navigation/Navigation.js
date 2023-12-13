@@ -6,7 +6,7 @@ import "./Navigation.css";
 
 const Navigation = ({ loggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const location = useLocation().pathname;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,11 +16,11 @@ const Navigation = ({ loggedIn }) => {
     <nav className="navigation">
       {loggedIn ? (
         <>
-          <div className="navigation__movies">
+          <div className={location === '/' ? 'navigation__movies navigation__movies_white' : 'navigation__movies'}>
             <Link
               to="/movies"
               className={
-                location.pathname === "/movies"
+                location === "/movies"
                   ? "navigation__movies-link_active"
                   : "navigation__movies-link"
               }
@@ -30,7 +30,7 @@ const Navigation = ({ loggedIn }) => {
             <Link
               to="/saved-movies"
               className={
-                location.pathname === "/saved-movies"
+                location === "/saved-movies"
                   ? "navigation__movies-link_active"
                   : "navigation__movies-link"
               }

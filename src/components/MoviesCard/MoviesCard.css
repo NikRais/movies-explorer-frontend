@@ -54,7 +54,8 @@
   border: none;
   border-radius: 30px;
   padding: 6px 7px;
-  background-color: #f9f9f9;
+  background-color: #313131;
+  color: #FFFFFF;
   cursor: pointer;
   visibility: hidden;
 }

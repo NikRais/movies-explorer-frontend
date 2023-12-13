@@ -13,7 +13,8 @@ class MovieApi {
   }
 
   getMovies() {
-    return fetch(this._movieUrl).then((res) => this._parseResponse(res));
+    return fetch(this._movieUrl)
+      .then(res => this._parseResponse(res));
   }
 }
 

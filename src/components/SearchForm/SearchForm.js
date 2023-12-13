@@ -51,9 +51,10 @@ const SearchForm = ({
               name="searchRequest"
               placeholder="Фильм"
               required
-              value={enteredValues.searchRequest || ""}
+              value={enteredValues.searchRequest || ''}
               onChange={handleChange}
               disabled={disabled}
+              autoComplete="off"
             />
             <button
               className="search__button"
@@ -82,7 +83,8 @@ const SearchForm = ({
               name="searchRequest"
               placeholder="Фильм"
               required
-              value={enteredValues.searchRequest || ""}
+              autoComplete="off"
+              value={enteredValues.searchRequest || ''}
               onChange={handleChange}
               disabled={disabled}
             />
