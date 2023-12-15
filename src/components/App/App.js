@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Route,
   Routes,
@@ -17,69 +17,77 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
+import { BEATFILM_BASE_URL } from '../../utils/constants';
+
+import * as mainApi from '../../utils/MainApi';
+/*import * as movieApi from '../../utils/MovieApi';*/
+
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 import "./App.css";
 
 import {
-  register,
-  login,
-  getUserInfo,
-  editUserInfo,
-  getSavedMovies,
-  saveMovie,
-  deleteMovie,
+  //register,
+  //login,
+  //getUserInfo,
+  //editUserInfo,
+  //getAllMovies,
+  //saveMovie,
+  //deleteMovie,
 } from "../../utils/MainApi";
 
-const App = () => {
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLogginOut, setIsLogginOut] = useState(false);
+  const [isSucceeded, setIsSucceeded] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    handleTokenCheck();
-  }, [isLoggedIn])
-
   /* Регистрация и авторизация */
   const handleRegistration = async ({ name, email, password }) => {
-    return register({ name, email, password })
-      .then(() => {
-        handleAuthorization({ email, password });
-      })
-      .catch(error => {
-        setPopupMessage(error);
-        setIsPopupOpen(true);
-      });
+    try {
+      if (!name || !email || !password) {
+        return;
+      }
+      setIsLoading(true);
+      const data = await mainApi.register(name, email, password);
+      if (data) {
+        handleAuthorization(email, password);
+      }
+    } catch(error) {
+      console.log(`Ошибка во время регистрации: ${error}`);
+      setPopupMessage('Такой пользователь уже существует');
+      setIsPopupOpen(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleAuthorization = async (data) => {
-    return login(data)
-      .then((data) => {
+  const handleAuthorization = async (email, password) => {
+    if (!email || !password) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const data = await mainApi.login(email, password);
+      if (data.message) {
+        localStorage.setItem('loggedIn', true);
         setIsLoggedIn(true);
-        localStorage.setItem("jwt", data.token);
-        navigate("/movies");
-        Promise.all([getUserInfo(data.token), getSavedMovies(data.token)])
-          .then(([userInfo, userMovies]) => {
-            setCurrentUser(userInfo);
-            localStorage.setItem("savedMovies", JSON.stringify(userMovies));
-            setSavedMovies(userMovies);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      })
-      .catch(error => {
-        setPopupMessage(error);
-        setIsPopupOpen(true);
-      });
+        navigate('/movies', { replace: true });
+      }
+    } catch (error) {
+      setPopupMessage(error);
+      setIsPopupOpen(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   /* Попап */
@@ -89,7 +97,75 @@ const App = () => {
   };
 
   /* Функциональность карточек фильмов */
-  const handleSaveMovie = (movie) => {
+  /*
+  const handleSearchAllMovies = async (movieSearchQuery) => {
+    setIsLoading(true);
+    try {
+      if (!JSON.parse(localStorage.getItem('allMoviesGallery'))) {
+        const allMoviesGallery = await movieApi.getAllMovies();
+        localStorage.setItem('allMoviesGallery', JSON.stringify(allMoviesGallery));
+      }
+      localStorage.setItem('movieSearchQuery', movieSearchQuery);
+      const movieQuery = movieSearchQuery.toLowerCase().trim();
+      const foundMovies = JSON.parse(localStorage.getItem('allMoviesGallery')).filter((movie) => {
+        const movieNameRUToLowerCase = movie.nameRU.toLowerCase().trim();
+        const movieNameENToLowerCase = movie.nameEN.toLowerCase().trim();
+        return (
+          movieNameRUToLowerCase.includes(movieQuery.toLowerCase().trim()) ||
+          movieNameENToLowerCase.includes(movieQuery.toLowerCase().trim())
+        )
+      })
+      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+      setFoundMovies(foundMovies);
+      const checkboxState = localStorage.getItem('checkboxState');
+      if (checkboxState === 'true') {
+        const filteredFoundMovies = foundMovies.filter((movie) => movie.duration <= SHORT_MOVIE_LENGTH);
+        setMovies(filteredFoundMovies);
+      } else {
+        setMovies(foundMovies);
+      }
+      setIsSucceeded(true);
+    }catch(error) {
+      setPopupMessage(error);
+      setIsPopupOpen(true);
+      setIsSucceeded(false);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
+  */
+
+
+
+  const handleSaveMovie = async (movie) => {
+    try {
+      const isSaved = savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
+      if (!isSaved) {
+        const savedMovie = await mainApi.saveMovie({
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: `${BEATFILM_BASE_URL}${movie.image.url}`,
+          trailerLink: movie.trailerLink,
+          thumbnail: `${BEATFILM_BASE_URL}${movie.image.formats.thumbnail.url}`,
+          movieId: movie.id,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN
+        });
+        const savedMoviesList = [...savedMovies, savedMovie];
+        setSavedMovies(savedMoviesList);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
+      }
+    } catch (error) {
+      setPopupMessage(error);
+      setIsPopupOpen(true);
+    }
+
+    /*
     const jwt = localStorage.getItem("jwt");
     const handledMovie = savedMovies.find(item => {
       return item.movieId === movie.id;
@@ -122,9 +198,21 @@ const App = () => {
           setIsPopupOpen(true);
         });
     }
+    */
   };
 
-  const handleDeleteMovie = (movie) => {
+  const handleDeleteMovie = async (movieId) => {
+    try {
+      await mainApi.deleteMovie(movieId);
+      const updatedSavedMovies = savedMovies.filter((movie) => movie._id !== movieId);
+      localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      setSavedMovies(updatedSavedMovies);
+    } catch (error) {
+      setPopupMessage(error);
+      setIsPopupOpen(true);
+    }
+
+    /*
     setIsLoading(true);
     const jwt = localStorage.getItem("jwt");
     deleteMovie(movie._id, jwt)
@@ -142,38 +230,89 @@ const App = () => {
       .finally(() => {
         setIsLoading(false);
       });
+      */
   };
 
   /* Изменение профиля */
-  const handleUpdateUser = (newUserInfo) => {
-    const jwt = localStorage.getItem("jwt");
+  const handleUpdateUser = async ({name, email}) => {
     setIsLoading(true);
-    editUserInfo(newUserInfo, jwt)
-      .then((data) => {
-        setCurrentUser(data);
-        setPopupMessage("Профиль отредактирован!");
-        setIsPopupOpen(true);
-      })
-      .catch(error => {
-        setPopupMessage("При редактировании профиля произошла ошибка");
-        setIsPopupOpen(true);
-      })
-      .finally(() => {
+    try {
+      const data = await mainApi.editUserInfo({name, email});
+      setCurrentUser(data);
+      //setPopupMessage("Профиль отредактирован!");
+      //setIsPopupOpen(true);
+      setIsSucceeded(true);
+    } catch(error) {
+      setPopupMessage("При редактировании профиля произошла ошибка");
+      setIsPopupOpen(true);
+    } finally {
+      //setIsPopupOpen(true);
+      setIsLoading(false);
+      setTimeout(() => {
         setIsLoading(false);
-      });
+      }, 1000);
+    }
   };
 
   /* Выход из профиля */
-  const handleSignOut = () => {
-    localStorage.clear();
-    setCurrentUser({});
-    setPopupMessage('');
-    setSavedMovies([]);
-    setIsLoggedIn(false);
-    navigate("/");
+  const handleSignOut = async () => {
+    setIsLogginOut(true);
+    try {
+      await mainApi.logout();
+      localStorage.clear();
+      setCurrentUser({});
+      setPopupMessage('');
+      setFoundMovies([]);
+      setSavedMovies([]);
+      setMovies([]);
+      setIsLoggedIn(false);
+      navigate("/", {replace: true});
+    } catch (error) {
+      console.log(`Ошибка при выходе из системы: ${error}`);
+    } finally {
+      setIsLogginOut(false);
+    }
   };
 
+  useEffect(() => {
+    const savedMoviesData = JSON.parse(localStorage.getItem('savedMovies'));
+    if (savedMoviesData && location.pathname === '/saved-movies') {
+      setSavedMovies(savedMoviesData);
+    }
+  }, [location.pathname]);
+
   /* Проверка токена */
+  const handleTokenCheck = useCallback(async () => {
+    try {
+      const isLoggedIn = localStorage.getItem('loggedIn');
+      if (isLoggedIn) {
+        await mainApi.handleTokenCheck();
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+ useEffect(() => {
+    handleTokenCheck();
+    isLoggedIn &&
+    Promise.all([mainApi.getUserInfo(), mainApi.getAllMovies()])
+    .then(([userData, savedMoviesData]) => {
+      setIsLoggedIn(true);
+      setCurrentUser(userData);
+      setSavedMovies(savedMoviesData);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
+    })
+    .catch((error) => {
+      console.log(`Ошибка выдачи данных: ${error}`);
+    })
+  }, [isLoggedIn, handleTokenCheck])
+
+  /*
   const handleTokenCheck = () => {
     const path = location.pathname;
     const jwt = localStorage.getItem("jwt");
@@ -184,12 +323,13 @@ const App = () => {
         navigate(path);
       })
       .catch((err) => console.log(err));
-    getSavedMovies(jwt)
+    getAllMovies(jwt)
       .then((movies) => {
         setSavedMovies(movies);
       })
       .catch((err) => console.log(err));
   };
+  */
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -206,7 +346,7 @@ const App = () => {
 
           <Route exact path="/signin"
             element={ !isLoggedIn ? (
-                <Login onLogin={handleAuthorization} />
+                <Login onLogin={handleAuthorization} isLoggedIn={isLoggedIn} />
               ) : (
                 <Navigate replace to="/" />
               )
@@ -255,6 +395,8 @@ const App = () => {
                 loggedIn={isLoggedIn}
                 onUpdateUser={handleUpdateUser}
                 onSignOut={handleSignOut}
+                isLogginOut={isLogginOut}
+                isSucceeded={isSucceeded}
               />
             }
           />
@@ -270,6 +412,6 @@ const App = () => {
       </section>
     </CurrentUserContext.Provider>
   );
-};
+}
 
 export default App;

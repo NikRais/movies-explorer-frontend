@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
     if (!enteredValues.email || !enteredValues.password) {
       return;
     }
-    onLogin(enteredValues);
+    onLogin(enteredValues.email, enteredValues.password);
   };
 
   return (

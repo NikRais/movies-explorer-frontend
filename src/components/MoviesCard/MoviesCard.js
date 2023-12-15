@@ -14,7 +14,7 @@ const MoviesCard = ({ isSavedMoviesPage, movie, onSave, onDelete, saved }) => {
 
   /* Удаление фильма */
   const handleDeleteCard = () => {
-    onDelete(movie);
+    onDelete(movie._id);
   };
 
   /* Определение размера */
