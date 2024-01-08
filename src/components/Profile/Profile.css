@@ -19,13 +19,12 @@
   font-size: 11px;
   line-height: 13px;
   width: 100%;
-  margin-bottom: 204px;
 }
 
 .profile__form-section {
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 16px 0 4px;
 }
 
 .profile__label {
@@ -44,6 +43,14 @@
   color: #ffffff;
 }
 
+.profile__error {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #ee3465;
+  height: 12px;
+}
+
 .profile__line {
   border-bottom: 1px solid #424242;
   width: 100%;
@@ -56,6 +63,7 @@
   font-size: 13px;
   line-height: 16px;
   text-align: center;
+  margin-top: 204px;
 }
 
 .profile__edit {
@@ -64,6 +72,10 @@
   background: none;
   cursor: pointer;
   color: #ffffff;
+}
+
+.profile__edit:disabled {
+  color: #CCCCCC;
 }
 
 .profile__logout {

@@ -38,7 +38,7 @@
   flex-direction: row;
   list-style: none;
 }
-
+/*
 .promo__item {
   width: 96px;
   height: 36px;
@@ -47,7 +47,7 @@
   background-color: #303030;
   transition: 0.4s ease-in;
 }
-
+*/
 .promo__link {
   display: flex;
   font-size: 12px;
@@ -56,14 +56,20 @@
   color: #ffffff;
   text-decoration: none;
   justify-content: center;
-  margin: 10px 0;
+  align-items: center;
+  width: 96px;
+  height: 36px;
+  border-radius: 10px;
+  margin-right: 10px;
+  background-color: #303030;
+  transition: 0.4s ease-in;
 }
 
-.promo__item:last-of-type {
+.promo__link:last-of-type {
   margin-right: 0;
 }
 
-.promo__item:hover {
+.promo__link:hover {
   opacity: 0.8;
 }
 
@@ -109,14 +115,16 @@
     line-height: 37px;
     letter-spacing: -0.04em;
   }
-
+/*
   .promo__item {
     width: 82px;
     height: 26px;
   }
-
+*/
   .promo__link {
     font-size: 10px;
     margin: 5px 0;
+    width: 82px;
+    height: 26px;
   }
 }

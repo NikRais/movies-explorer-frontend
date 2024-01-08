@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useForm from "../../utils/useForm";
+import useForm from "../../hooks/useForm";
 import logo from "../../images/header-logo.svg";
 
 import "./Register.css";
 
-const Register = () => {
-  const { enteredValues, errors, handleChange } = useForm();
+const Register = ({ onRegister }) => {
+  const { enteredValues, errors, handleChange, isFormValid } = useForm();
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onRegister(enteredValues);
+  };
 
   return (
     <section className="register__container">
@@ -18,7 +23,7 @@ const Register = () => {
         <h1 className="register__title">Добро пожаловать!</h1>
       </div>
 
-      <form className="register__form">
+      <form className="register__form form" onSubmit={handleSubmit}>
         <label className="register__label" htmlFor="name">
           Имя
         </label>
@@ -45,6 +50,7 @@ const Register = () => {
           required
           value={enteredValues.email || ""}
           onChange={handleChange}
+          /*pattern={"^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"}*/
         />
         <span className="register__error">{errors.email}</span>
 
@@ -63,7 +69,11 @@ const Register = () => {
         />
         <span className="register__error">{errors.password}</span>
 
-        <button className="register__button" type="submit">
+        <button
+          className="register__button"
+          type="submit"
+          disabled={!isFormValid}
+        >
           Зарегистрироваться
         </button>
       </form>
