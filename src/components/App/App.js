@@ -63,7 +63,7 @@ function App() {
       }
     } catch(error) {
       console.log(`Ошибка во время регистрации: ${error}`);
-      setPopupMessage('Такой пользователь уже существует');
+      setPopupMessage('Убедитесь, что регистрируетесь впервые или введите новые данные');
       setIsPopupOpen(true);
     } finally {
       setIsLoading(false);
@@ -83,7 +83,7 @@ function App() {
         navigate('/movies', { replace: true });
       }
     } catch (error) {
-      setPopupMessage(error);
+      setPopupMessage('Введите кооректные данные или зарегистрируйтесь');
       setIsPopupOpen(true);
     } finally {
       setIsLoading(false);
@@ -238,15 +238,15 @@ function App() {
     setIsLoading(true);
     try {
       const data = await mainApi.editUserInfo({name, email});
+      //setIsSucceeded(true);
       setCurrentUser(data);
-      //setPopupMessage("Профиль отредактирован!");
-      //setIsPopupOpen(true);
-      setIsSucceeded(true);
     } catch(error) {
+      console.log(`Ошибка загрузки данных пользователя: ${error}`);
       setPopupMessage("При редактировании профиля произошла ошибка");
       setIsPopupOpen(true);
     } finally {
-      //setIsPopupOpen(true);
+      setPopupMessage("Профиль отредактирован!");
+      setIsPopupOpen(true);
       setIsLoading(false);
       setTimeout(() => {
         setIsLoading(false);
@@ -396,7 +396,6 @@ function App() {
                 onUpdateUser={handleUpdateUser}
                 onSignOut={handleSignOut}
                 isLogginOut={isLogginOut}
-                isSucceeded={isSucceeded}
               />
             }
           />

@@ -50,6 +50,9 @@ const MoviesCardList = ({
       setShowMovieList(movies);
     }
   }, [screenWidth, movies]);
+  
+  // console.log('savedMovies', savedMovies)
+  // console.log('showMovieList', showMovieList)
 
   return (
     <section className="cards">

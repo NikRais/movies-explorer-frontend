@@ -11,24 +11,18 @@ const Promo = ({ loggedIn }) => {
         <h1 className="promo__title">
           Учебный проект студента факультета Веб-разработки.
         </h1>
-
-        <ul className="promo__nav-bar">
-          <li className="promo__item">
+        
+        <div className="promo__nav-bar">
             <a href="#aboutProject" className="promo__link">
               О проекте
             </a>
-          </li>
-          <li className="promo__item">
             <a href="#techs" className="promo__link">
               Технологии
             </a>
-          </li>
-          <li className="promo__item">
             <a href="#aboutMe" className="promo__link">
               Студент
             </a>
-          </li>
-        </ul>
+        </div>
       </div>
     </section>
   );

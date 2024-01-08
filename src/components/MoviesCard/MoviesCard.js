@@ -14,6 +14,7 @@ const MoviesCard = ({ isSavedMoviesPage, movie, onSave, onDelete, saved }) => {
 
   /* Удаление фильма */
   const handleDeleteCard = () => {
+    // console.log(movie)
     onDelete(movie._id);
   };
 
@@ -61,7 +62,7 @@ const MoviesCard = ({ isSavedMoviesPage, movie, onSave, onDelete, saved }) => {
         <span className="card__duration">{getTimeFromMins(movie.duration)}</span>
       </div>
       {saved && !isSavedMoviesPage && 
-        <button className="card__button-save" type='button' onClick={handleSaveCard} />}
+        <button className="card__button-save" type='button' onClick={!saved ? handleSaveCard : handleDeleteCard} />}
       {isSavedMoviesPage ? (
         <button className="card__button-delete" type='button' onClick={handleDeleteCard} />
       ) : (

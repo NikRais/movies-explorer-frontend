@@ -25,11 +25,11 @@ const SavedMovies = ({
   const [notFound, setNotFound] = useState(false);
 
   const handleSearchSubmit = (inputValue) => {
-    if (inputValue.trim().length === 0) {
-      setPopupMessage("Нужно ввести ключевое слово");
-      setIsPopupOpen(true);
-      return;
-    }
+     if (inputValue.trim().length === 0) {
+       setPopupMessage("Нужно ввести ключевое слово");
+       setIsPopupOpen(true);
+       return;
+     }
 
     const moviesList = moviesFilter(savedMovies, inputValue, shortMovies);
     setSearchQuery(inputValue);
@@ -47,7 +47,9 @@ const SavedMovies = ({
   useEffect(() => {
     if (localStorage.getItem("shortSavedMovies") === "true") {
       setShortMovies(true);
-      setShowedMovies(shortMoviesFilter(savedMovies));
+      
+      const moviesList = moviesFilter(savedMovies, searchQuery, shortMovies);
+      setShowedMovies(shortMoviesFilter(moviesList));
     } else {
       setShortMovies(false);
       const moviesList = moviesFilter(savedMovies, searchQuery, shortMovies);

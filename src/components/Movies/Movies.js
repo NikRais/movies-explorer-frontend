@@ -15,6 +15,7 @@ const Movies = ({
   onLoading,
   savedMovies,
   onSave,
+  onDelete,
   isLoading,
   setPopupMessage,
   setIsPopupOpen,
@@ -43,11 +44,11 @@ const Movies = ({
   };
 
   const handleSearchSubmit = (inputValue) => {
-    if (inputValue.trim().length === 0) {
-      setPopupMessage("Нужно ввести ключевое слово");
-      setIsPopupOpen(true);
-      return;
-    }
+     if (inputValue?.trim().length === 0) {
+       setPopupMessage("Нужно ввести ключевое слово");
+       setIsPopupOpen(true);
+       return;
+     }
 
     localStorage.setItem("movieSearch", inputValue);
     localStorage.setItem("shortMovies", shortMovies);
@@ -104,6 +105,15 @@ const Movies = ({
     }
   }, [location]);
 
+  filteredMovies.map((movie) => {
+    const movies = savedMovies.map((savedMovie) => {
+      if (movie.nameRU === savedMovie.nameRU) {
+        movie._id = savedMovie._id
+      }
+    })
+    return movie
+  })
+
   return (
     <section className="movies__page">
       <Header loggedIn={loggedIn} />
@@ -121,6 +131,7 @@ const Movies = ({
               movies={filteredMovies}
               savedMovies={savedMovies}
               onSave={onSave}
+              onDelete={onDelete}
             />
           )}
         </div>
