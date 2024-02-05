@@ -7,7 +7,7 @@
   padding: 0;
   margin: 80px 0 28px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
   column-gap: 30px;
   row-gap: 58px;
   justify-content: center;
@@ -30,22 +30,6 @@
 
 .cards__button:hover {
   opacity: 0.8;
-}
-
-.cards__button-hidden {
-  display: none;
-  margin: 50px auto 80px;
-  padding: 11px 0 9px;
-  width: 100%;
-  border: none;
-  border-radius: 6px;
-  color: #ffffff;
-  background-color: #2f2f2f;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  cursor: pointer;
-  transition: 0.3s ease;
 }
 
 @media screen and (max-width: 768px) {

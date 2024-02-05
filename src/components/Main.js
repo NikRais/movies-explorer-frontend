@@ -1,4 +1,4 @@
-import Header from "./Header/Header";
+import React from "react";
 import Promo from "./Promo/Promo";
 import AboutProject from "./AboutProject/AboutProject";
 import Techs from "./Techs/Techs";
@@ -9,14 +9,11 @@ import Footer from "./Footer/Footer";
 const Main = ({ loggedIn }) => {
   return (
     <>
-      <Header loggedIn={loggedIn} />
-      <main>
-        <Promo />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
-      </main>
+      <Promo loggedIn={loggedIn}/>
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+      <Portfolio />
       <Footer />
     </>
   );

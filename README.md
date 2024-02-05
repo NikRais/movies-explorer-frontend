@@ -2,6 +2,10 @@ movies-explorer-frontend
 
 Макет Figma Dark 2: https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/Дипломный-проект?type=design&node-id=1-7266&mode=design&t=m969Y0wf9VbnuiBj-0 
 
+Ссылка на пул реквест level-3: https://github.com/NikRais/movies-explorer-frontend/pull/2
+
+Ссылка на задеплоенный на сервере проект: "https://diplom.nikrais.nomoredomainsmonster.ru"
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
